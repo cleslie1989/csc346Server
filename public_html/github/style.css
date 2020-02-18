@@ -1,0 +1,18 @@
+#status{
+    background-color: lightgoldenrodyellow;
+}
+.user{
+    display: flex;
+    background: lightgray;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.user img{
+    width: 70px;
+}
+
+ul{
+    list-style: none;
+    margin-left: 1em;
+}

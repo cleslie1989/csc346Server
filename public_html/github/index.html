@@ -3,9 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Github Users</title>
+    <link rel = "stylesheet" href = "style.css">
+    <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--CDN-->
+    <script>
+        const github = 'http://api.github.com/users';
+        
+        
+        function showText(id, message){
+            document.getElementById(id).innerHTML = message;
+        }
+        function processUsers(users){
+            let output = ' ';
+            for(const i in users){
+                output += '<div class = "user">'+
+                    `<div><img src = "${users[i].avatar_url}" alt = "User image of ${users.login}"></div>`+
+                    `<ul><li>${users[i].login}</li><li><a href = "${users[i].html_url}">Link</a></li></ul>`+
+                    `</div>`;
+            }
+            
+            showText('userDisplay',output);
+        }
+        function loadUsers(){
+            showText('status','Starting... ');
+            console.log("in LoadUsers");
+            axios.get(github)
+            .then(response=>{
+                processUsers(response.data);
+                //console.log("The Response Data: "+ JSON.stringify(response.data));
+            })
+            .catch(error=>console.log("axios.get error: "+error))
+            .finally(showText("status","DONE!"))
+        }
+       
+    </script>
 </head>
 <body>
-    
+    <h1>Github Users</h1>
+    <p><button onclick="loadUsers()">Github Users</button></p>
+    <hr>
+    <div>
+        <p id = "status"></p>
+    </div>
+    <hr>
+    <div id = "userDisplay">&nbsp;</div>
 </body>
 </html>
